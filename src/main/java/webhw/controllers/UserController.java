@@ -43,4 +43,10 @@ public class UserController {
         model.addAttribute("users", users);
         return "user";
     }
+
+    @GetMapping(value = "/change")
+    public String showChangeUser(ModelMap model) {
+        model.addAttribute("user", new User());
+        return "change";
+    }
 }
