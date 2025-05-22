@@ -1,5 +1,6 @@
 package webhw.controllers;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,23 +20,27 @@ public class UserController {
     public UserController() {
     }
 
+    @Autowired
     public UserController(UserService userService) {
         this.userService = userService;
     }
 
-    @GetMapping(value = "/")
-    public String showHello(ModelMap model) {
-        List<String> list = new ArrayList<>();
-        list.add("Hello");
-        list.add("All");
-        list.add("Is GOOD!");
-        model.addAttribute("user", new User());
-        return "index";
-    }
+//    @GetMapping(value = "/")
+//    public String showHello(ModelMap model) {
+//        model.addAttribute("user", new User());
+//        return "index";
+//    }
 
     @PostMapping(value = "/")
     public String saveUser(@ModelAttribute("user") User user) {
         userService.save(user);
         return "redirect:/hi";
+    }
+
+    @GetMapping(value = "/users")
+    public String showAllUsers(ModelMap model) {
+        List<User> users = userService.getAllUsers();
+        model.addAttribute("users", users);
+        return "user";
     }
 }
