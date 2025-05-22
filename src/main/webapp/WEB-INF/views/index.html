@@ -6,9 +6,20 @@
     <title>Title</title>
 </head>
 <body>
-<p>That not good</p>
-<th:block th:each="msg : ${messages}">
-    <h1 th:text="${msg}"></h1>
-</th:block>
+<div>
+    <h1>Введите ваши данные</h1>
+    <form th:action="@{/}" th:method="post" th:object="${user}">
+        <label for="name">Имя:</label><br>
+        <input type="text" id="name" name="name" th:field="*{name}" required><br><br>
+
+        <label for="lastName">Фамилия:</label><br>
+        <input type="text" id="lastName" name="lastName" th:field="*{lastName}" required><br><br>
+
+        <label for="email">Email:</label><br>
+        <input type="email" id="email" name="email" th:field="*{email}" required><br><br>
+
+        <button type="submit">Сохранить в БД</button>
+    </form>
+</div>
 </body>
 </html>
