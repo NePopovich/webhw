@@ -33,7 +33,7 @@ public class StartControllers {
 
     @GetMapping(value = "/hi")
     public String hiPage(ModelMap model) {
-        User user = userService.getLastAddUser();
+        User user = userService.getCurrentUser();
         model.addAttribute("user", user);
         return "hi";
     }

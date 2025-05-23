@@ -6,6 +6,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import webhw.model.User;
 import webhw.service.UserService;
 
@@ -44,9 +45,49 @@ public class UserController {
         return "user";
     }
 
+    @GetMapping(value = "/motion")
+    public String showChangeUser() {
+        return "motion";
+    }
+
+    @PostMapping(value = "/motion")
+    public String motionWithUser(@RequestParam("action") String action,
+                                 @RequestParam("name") String name,
+                                 @RequestParam("lastName") String lastName){
+        if ("delete".equals(action)) {
+            userService.getUserByNameAndLastName(name,lastName);
+            return "redirect:/delete";
+        }else {
+            userService.getUserByNameAndLastName(name,lastName);
+            return "redirect:/change";
+        }
+    }
+
     @GetMapping(value = "/change")
     public String showChangeUser(ModelMap model) {
         model.addAttribute("user", new User());
         return "change";
+    }
+
+    @PostMapping(value = "/change")
+    public String changeUser(@ModelAttribute("user") User user) {
+        userService.updateUser(user, userService.getCurrentUser().getId());
+        return "redirect:/hi";
+    }
+
+    @GetMapping(value = "/delete")
+    public String showDeleteUser(ModelMap model) {
+        model.addAttribute("user", userService.getCurrentUser());
+        return "delete";
+    }
+
+    @PostMapping(value = "/delete")
+    public String deleteUser(@RequestParam("action") String action){
+        if ("yes".equals(action)) {
+            userService.deleteUser(userService.getCurrentUser());
+            return "redirect:/hi";
+        } else {
+            return "redirect:/hi";
+        }
     }
 }

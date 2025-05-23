@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8"/>
-    <title>Изменить данные</title>
+    <title>Введите ваши данные</title>
     <style>
         body {
             display: flex;
@@ -48,7 +48,7 @@
         }
 
         button[type="submit"] {
-            width: 100%;
+            width: calc(50% - 10px);
             padding: 12px;
             background-color: #4CAF50;
             color: white;
@@ -59,8 +59,26 @@
             transition: background-color 0.3s ease;
         }
 
+        button[type="submit"]:nth-child(2) {
+            background-color: #f44336;
+        }
+
+        button[type="submit"]:nth-child(2):hover {
+            background-color: #d32f2f;
+        }
+
         button[type="submit"]:hover {
             background-color: #45a049;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .action-buttons button {
+            flex: 1;
         }
 
         .buttons {
@@ -73,37 +91,33 @@
             padding: 10px 15px;
             font-size: 14px;
             border-radius: 5px;
-            border: none;
-            cursor: pointer;
+            border:none ;
+            cursor:pointer;
 
-            background-color: #2196F3;
-            color: white;
-            transition: .3s all ease
+            background-color:#2196F3 ;
+            color:white ;
+            transition:.3s all ease
         }
 
-        a button:hover {
-            background-color: #1976D2
+        a button:hover{
+            background-color:#1976D2
         }
     </style>
 </head>
 <body>
 <div class="form-container">
-    <h1>Введите ваши данные</h1>
-    <form th:action="@{/change}" th:method="post" th:object="${user}">
+    <h1>Данные пользователя</h1>
+    <form th:action="@{/motion}" th:method="post">
         <label for="name">Имя:</label>
-        <input type="text" id="name" name="name" th:field="*{name}" required/>
+        <input type="text" id="name" name="name" required/>
 
         <label for="lastName">Фамилия:</label>
-        <input type="text" id="lastName" name="lastName" th:field="*{lastName}" required/>
+        <input type="text" id="lastName" name="lastName" required/>
 
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" th:field="*{email}" required/>
-
-        <div>
-            <button type="submit">Изменить</button>
+        <div class="action-buttons">
+            <button type="submit" name="action" value="update">Изменить</button>
+            <button type="submit" name="action" value="delete">Удалить</button>
         </div>
-
-
 
         <div class="buttons">
             <a href="/">
