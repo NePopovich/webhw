@@ -35,22 +35,8 @@ public class StartControllers {
     public String hiPage(ModelMap model) {
         User user = userService.getCurrentUser();
         model.addAttribute("user", user);
+        model.addAttribute("messages", userService.getMessages());
         return "hi";
     }
-//
-//    @PostMapping(value = "/")
-//    public String saveUserToDB(@ModelAttribute("user") User user) {
-//        userService.save(user);
-//        return "index:/hi";
-//    }
-//
-//    @GetMapping("/user")
-//    public String userPage(ModelMap model) {
-//        List<String> messages = new ArrayList<>();
-//        messages.add("Hello!");
-//        messages.add("Now");
-//        messages.add("All is GOOD!");
-//        model.addAttribute("messages", messages);
-//        return "user.html";
-//    }
+
 }

@@ -1,35 +1,85 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
     <title>HI User</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      text-align: center;
-      padding: 50px;
-    }
-    .buttons {
-      margin-top: 20px;
-      display: flex;
-      justify-content: center;
-      gap: 10px; /* расстояние между кнопками */
-    }
-    button {
-      padding: 10px 20px;
-      font-size: 16px;
-      cursor: pointer;
-    }
-  </style>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 30px 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        p {
+            margin-bottom: 10px;
+            font-size: 16px;
+            color: #555;
+        }
+
+        .buttons {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        a button {
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+
+            background-color:#2196F3;
+            color:white;
+            transition:.3s all ease
+        }
+        a button:hover{
+            background-color:#1976D2
+        }
+    </style>
 </head>
 <body>
-<h1>Добро пожаловать!</h1>
-<p>Здравствуйте, <span th:text="${user.getName()} + ' ' + ${user.getLastName()}"></span>!</p>
-<p>Выберите дальнейшее действие!</p>
+<div class="container">
+    <h1>Пользователь, <span th:text="${user.getName()} + ' ' + ${user.getLastName()}"></span>!</h1>
 
-<div class="buttons">
-  <a href="/" ><button>На главную</button></a>
-  <a href="/users" ><button>Все Пользователи</button></a>
+    <!-- Вывод сообщений -->
+    <div th:if="${messages}">
+        <th:block th:each="msg : ${messages}">
+            <p th:text="${msg}"></p>
+        </th:block>
+    </div>
+
+    <div class="buttons">
+        <a href="/">
+            <button>На главную</button>
+        </a>
+        <a href="/motion">
+            <button>Изменение</button>
+        </a>
+        <a href="/users">
+            <button>Все Пользователи</button>
+        </a>
+    </div>
 </div>
 </body>
 </html>

@@ -12,6 +12,8 @@ import java.util.List;
 @Service
 public class UserService {
 
+    private List<String> messages;
+
     private User currentUser;
 
     private UserDao userDao;
@@ -28,16 +30,19 @@ public class UserService {
         return currentUser;
     }
 
+    public List<String> getMessages() {
+        return messages;
+    }
+
+    public void setMessages(List<String> messages) {
+        this.messages = messages;
+    }
+
     public void save(User user) {
         currentUser = user;
         userDao.save(user);
     }
 
-    public User getLastAddUser() {
-        List<User> users = new ArrayList<>();
-        users = userDao.findAll();
-        return users.get(users.size() - 1);
-    }
 
     public List<User> getAllUsers() {
         return userDao.findAll();
@@ -53,5 +58,6 @@ public class UserService {
 
     public void updateUser(User user, Long id) {
         userDao.updateUserById(user, id);
+        currentUser = user;
     }
 }
