@@ -8,12 +8,14 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import webhw.model.User;
 
+import java.util.Optional;
+
 @Repository
 public interface UserDao extends JpaRepository<User, Long> {
-    User findByNameAndLastName(String name, String lastName);
+    Optional findByNameAndLastName(String name, String lastName);
 
     @Modifying
     @Transactional
-    @Query("update User u set u.name = :#{#user.name}, u.lastName = :#{#user.lastName}, u.email = :#{#user.email} where u.id = :id")
+    @Query("update User u set u.name = :name, u.lastName = :lastName, u.email = :email where u.id = :id")
     void updateUserById(@Param("user") User user, @Param("id") Long id);
 }

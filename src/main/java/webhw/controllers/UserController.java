@@ -26,31 +26,30 @@ public class UserController {
         this.userService = userService;
     }
 
-
-    @PostMapping(value = "/")
+    @PostMapping("/")
     public String saveUser(@ModelAttribute("user") User user) {
         List<String> messages = new ArrayList<>();
         messages.add("Здравствуйте!");
         messages.add("Добро пожаловать!");
         messages.add("Выберите дальнейшее действие");
-        userService.setMessages(messages);
+        StartController.setMessages(messages);
         userService.save(user);
-        return "redirect:/hi";
+        return "redirect:/info";
     }
 
-    @GetMapping(value = "/users")
+    @GetMapping("/users")
     public String showAllUsers(ModelMap model) {
         List<User> users = userService.getAllUsers();
         model.addAttribute("users", users);
-        return "user";
+        return "users";
     }
 
-    @GetMapping(value = "/motion")
+    @GetMapping("/motion")
     public String showChangeUser() {
         return "motion";
     }
 
-    @PostMapping(value = "/motion")
+    @PostMapping("/motion")
     public String motionWithUser(@RequestParam("action") String action,
                                  @RequestParam("name") String name,
                                  @RequestParam("lastName") String lastName){
@@ -63,44 +62,44 @@ public class UserController {
         }
     }
 
-    @GetMapping(value = "/change")
+    @GetMapping("/change")
     public String showChangeUser(ModelMap model) {
         model.addAttribute("user", new User());
         return "change";
     }
 
-    @PostMapping(value = "/change")
+    @PostMapping("/change")
     public String changeUser(@ModelAttribute("user") User user) {
         List<String> messages = new ArrayList<>();
         messages.add("Обновлен в БД!");
         messages.add("Выберите дальнейшее действие");
-        userService.setMessages(messages);
-        userService.updateUser(user, userService.getCurrentUser().getId());
-        return "redirect:/hi";
+        StartController.setMessages(messages);
+        userService.updateUser(user, StartController.getCurrentUser().getId());
+        return "redirect:/info";
     }
 
-    @GetMapping(value = "/delete")
+    @GetMapping("/delete")
     public String showDeleteUser(ModelMap model) {
-        model.addAttribute("user", userService.getCurrentUser());
+        model.addAttribute("user", StartController.getCurrentUser());
         return "delete";
     }
 
-    @PostMapping(value = "/delete")
+    @PostMapping("/delete")
     public String deleteUser(@RequestParam("action") String action){
         if ("yes".equals(action)) {
             List<String> messages = new ArrayList<>();
             messages.add("Удален из БД!");
             messages.add("Выберите дальнейшее действие");
-            userService.setMessages(messages);
-            userService.deleteUser(userService.getCurrentUser());
-            return "redirect:/hi";
+            StartController.setMessages(messages);
+            userService.deleteUser(StartController.getCurrentUser());
+            return "redirect:/info";
         } else {
             List<String> messages = new ArrayList<>();
             messages.add("Не был удален из БД!");
             messages.add("Возможно правильно=)");
             messages.add("Выберите дальнейшее действие");
-            userService.setMessages(messages);
-            return "redirect:/hi";
+            StartController.setMessages(messages);
+            return "redirect:/info";
         }
     }
 }
