@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <title>Введите ваши данные</title>
+    <meta charset="UTF-8"/>
+    <title>Изменить данные</title>
     <style>
         body {
             display: flex;
@@ -18,7 +18,7 @@
             background-color: #fff;
             padding: 30px 40px;
             border-radius: 10px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             max-width: 400px;
             width: 100%;
         }
@@ -76,33 +76,42 @@
             border: none;
             cursor: pointer;
 
-            background-color:#2196F3;
-            color:white;
-            transition:.3s all ease
+            background-color: #2196F3;
+            color: white;
+            transition: .3s all ease
         }
-        a button:hover{
-            background-color:#1976D2
+
+        a button:hover {
+            background-color: #1976D2
         }
     </style>
 </head>
 <body>
 <div class="form-container">
     <h1>Введите ваши данные</h1>
-    <form th:action="@{/}" th:method="post" th:object="${user}">
+    <form th:action="@{/change}" th:method="post" th:object="${user}">
         <label for="name">Имя:</label>
-        <input type="text" id="name" name="name" th:field="*{name}" required />
+        <input type="text" id="name" name="name" th:field="*{name}" required/>
 
         <label for="lastName">Фамилия:</label>
-        <input type="text" id="lastName" name="lastName" th:field="*{lastName}" required />
+        <input type="text" id="lastName" name="lastName" th:field="*{lastName}" required/>
 
         <label for="email">Email:</label>
-        <input type="email" id="email" name="email" th:field="*{email}" required />
+        <input type="email" id="email" name="email" th:field="*{email}" required/>
 
-        <button type="submit">Сохранить в БД</button>
+        <div>
+            <button type="submit">Изменить</button>
+        </div>
+
+
 
         <div class="buttons">
-            <a href="/motion"><button type="button">Изменить Пользователя</button></a>
-            <a href="/users"><button type="button">Все Пользователи</button></a>
+            <a href="/">
+                <button type="button">На Главную</button>
+            </a>
+            <a href="/users">
+                <button type="button">Все Пользователи</button>
+            </a>
         </div>
     </form>
 </div>
